@@ -181,6 +181,43 @@ document.addEventListener("DOMContentLoaded", () => {
   // Botão completo direto
   document.getElementById("cta-complete")?.addEventListener("click", e => { e.preventDefault(); goComplete(); });
 
+  /* ----------------------------------------------------------
+     VSL LAZY LOAD — Wistia só carrega ao clicar no thumbnail
+  ---------------------------------------------------------- */
+  (() => {
+    const thumb   = document.getElementById("vsl-thumb");
+    const wrapper = document.getElementById("vsl-wrapper");
+    if (!thumb || !wrapper) return;
+
+    const loadVSL = () => {
+      // Remove thumbnail
+      thumb.remove();
+
+      // Injeta iframe Wistia
+      const iframe = document.createElement("iframe");
+      iframe.src = "https://fast.wistia.net/embed/iframe/r1zwaej3mt?web_component=true&seo=true&autoPlay=true";
+      iframe.title = "MINI VSL Video";
+      iframe.allow = "autoplay; fullscreen";
+      iframe.allowTransparency = true;
+      iframe.setAttribute("frameborder", "0");
+      iframe.setAttribute("scrolling", "no");
+      iframe.className = "wistia_embed";
+      iframe.name = "wistia_embed";
+      wrapper.appendChild(iframe);
+
+      // Injeta player.js dinamicamente (só uma vez)
+      if (!document.querySelector('script[src*="wistia"]')) {
+        const s = document.createElement("script");
+        s.src = "https://fast.wistia.net/player.js";
+        s.async = true;
+        document.head.appendChild(s);
+      }
+    };
+
+    thumb.addEventListener("click", loadVSL);
+    thumb.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); loadVSL(); } });
+  })();
+
   // Hero CTA → abre checkout se configurado, senão rola para oferta
   document.getElementById("cta-hero")?.addEventListener("click", e => {
     e.preventDefault();

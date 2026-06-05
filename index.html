@@ -25,60 +25,97 @@
 </div>
 
 <!-- ================================================================
-     HERO SECTION — MINI VSL WISTIA
+     HERO SECTION V2 — MOCKUP + MINI VSL LAZY
 ================================================================ -->
 <section class="hero" id="hero">
-  <div class="container hero-container-vsl">
+  <div class="container hero-container-v2">
 
-    <!-- HEADLINE + SUBHEADLINE -->
-    <div class="hero-header-block">
-      <h1 class="hero-headline">
-        ¿Siempre preparas la<br class="hl-br"/> carne molida igual?
-      </h1>
-      <p class="hero-subheadline">
-        Descubre cómo convertir la misma carne molida en platos con apariencia de restaurante, sin ser chef y sin gastar de más.
-      </p>
-    </div>
+    <!-- TOPO: 2 colunas — copy | mockup -->
+    <div class="hero-top-row">
 
-    <!-- VIDEO BLOCK (VSL) -->
-    <div class="hero-vsl-block">
-      <p class="vsl-intro-text">Mira el video y descubre cómo funciona:</p>
-      
-      <div class="hero-vsl-wrapper">
-        <div class="wistia_responsive_padding" style="padding:177.78% 0 0 0;position:relative;">
-          <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-            <iframe src="https://fast.wistia.net/embed/iframe/r1zwaej3mt?web_component=true&seo=true" title="MINI VSL Video" allow="autoplay; fullscreen" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" width="100%" height="100%"></iframe>
+      <!-- COLUNA ESQUERDA: copy + price + CTA -->
+      <div class="hero-copy-col">
+
+        <!-- Eyebrow -->
+        <div class="hero-eyebrow">📘 Guía Digital · Acceso Inmediato</div>
+
+        <!-- HEADLINE -->
+        <h1 class="hero-headline">
+          ¿Siempre preparas la<br/>
+          <span class="hl-acc">carne molida igual?</span>
+        </h1>
+
+        <!-- SUBHEADLINE -->
+        <p class="hero-subheadline">
+          Descubre <strong>90 recetas fáciles</strong> para transformarla en comidas diferentes, económicas y deliciosas para tu familia.
+        </p>
+
+        <!-- BULLETS RÁPIDOS -->
+        <ul class="hero-bullets">
+          <li><span class="hb-check">✓</span> Sin ser chef · ingredientes simples</li>
+          <li><span class="hb-check">✓</span> Listo en minutos · todo en tu celular</li>
+          <li><span class="hb-check">✓</span> +2.800 familias ya usaron</li>
+        </ul>
+
+        <!-- PRICE CARD COMPACTO -->
+        <div class="hero-price-card">
+          <div class="price-card-header">
+            <span class="price-old">De <s>US$ 19.90</s></span>
+            <span class="price-badge">LANZAMIENTO</span>
           </div>
+          <div class="price-card-main">
+            <span class="price-current">US$ 5.90</span>
+          </div>
+          <a href="#" id="cta-hero" class="btn btn-hero btn-pulse">
+            QUIERO MIS 90 RECETAS →
+          </a>
+          <p class="price-card-micro">🔒 Acceso inmediato · Pago seguro</p>
         </div>
-      </div>
-      <script src="https://fast.wistia.net/player.js" async></script>
-    </div>
 
-    <!-- CARD DE OFERTA COMPACTO -->
-    <div class="hero-price-card">
-      <div class="price-card-header">
-        <span class="price-old">De <s>US$ 19.90</s></span>
-        <span class="price-badge">LANZAMIENTO</span>
-      </div>
-      <div class="price-card-main">
-        <span class="price-current">US$ 5.90</span>
-      </div>
-      <a href="#" id="cta-hero" class="btn btn-hero btn-pulse">
-        QUIERO MIS 90 RECETAS AHORA
-      </a>
-      <p class="price-card-micro">Acceso digital inmediato • Pago seguro</p>
-    </div>
+      </div><!-- /hero-copy-col -->
 
-    <!-- SOCIAL PROOF / VALORACIÓN -->
+      <!-- COLUNA DIREITA: mockup do eBook -->
+      <div class="hero-mockup-col">
+        <div class="hero-mockup-wrap">
+          <img
+            src="images/ebook-mockup-transparent.png"
+            alt="Guía 90 Recetas con Carne Molida"
+            class="hero-mockup-img"
+            width="280"
+            height="370"
+            fetchpriority="high"
+          />
+          <div class="mockup-badge-tl">90<br/><span>recetas</span></div>
+          <div class="mockup-badge-br">US$<br/><strong>5.90</strong></div>
+        </div>
+      </div><!-- /hero-mockup-col -->
+
+    </div><!-- /hero-top-row -->
+
+    <!-- SOCIAL PROOF -->
     <div class="hero-social-proof">
       <span class="stars">⭐⭐⭐⭐⭐</span>
-      <span class="sp-text">+2.800 familias ya accedieron en Latinoamérica</span>
+      <span class="sp-text">+2.800 familias en Latinoamérica</span>
     </div>
 
-    <!-- LEYENDA FINAL -->
-    <p class="hero-tagline">Low carb • Rápidas • Caseras • Para toda la familia</p>
+    <!-- VSL LAZY — thumbnail clicável carrega Wistia -->
+    <div class="hero-vsl-block">
+      <p class="vsl-intro-text">▶ Mira el video y descubre cómo funciona:</p>
+      <div class="hero-vsl-wrapper" id="vsl-wrapper">
+        <!-- Thumbnail clicável (lazy load) -->
+        <div class="vsl-thumbnail" id="vsl-thumb" role="button" tabindex="0" aria-label="Reproducir video">
+          <div class="vsl-thumb-overlay">
+            <div class="vsl-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="white" width="36" height="36"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <p class="vsl-thumb-label">Toca para ver el video</p>
+          </div>
+        </div>
+        <!-- iframe Wistia injetado via JS ao clicar -->
+      </div>
+    </div>
 
-  </div>
+  </div><!-- /container -->
 
   <!-- Onda decorativa -->
   <div class="hero-wave">
