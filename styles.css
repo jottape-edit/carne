@@ -832,87 +832,207 @@ ul{list-style:none}
 /* ============================================================
    UPSELL POPUP
    ============================================================ */
-/* Elementos de Overlay / Popup (los fondos oscuros fijos) */
-.upgrade-popup,
-.upsell-popup,
-.upsell-overlay {
-  display: none;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+.upgrade-modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 2000;
-  background: rgba(0,0,0,.78);
-  backdrop-filter: blur(6px);
+  z-index: 9998;
+  display: none;
   align-items: center;
   justify-content: center;
-  padding: 16px;
-  transition: opacity .35s ease;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
 }
 
-/* Elementos de Modal (las tarjetas blancas internas) */
-.upgrade-modal,
-.upsell-modal {
-  display: none;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+.upgrade-modal-overlay.is-visible {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.upgrade-modal-content {
   position: relative;
-  background: #fff;
-  border-radius: var(--rl);
-  max-width: 500px;
+  z-index: 9999;
   width: 100%;
-  box-shadow: 0 32px 100px rgba(0,0,0,.55);
+  max-width: 460px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: linear-gradient(180deg, #1f0803 0%, #120401 100%);
+  border: 1px solid rgba(255, 190, 90, 0.35);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  color: #fff;
+}
+
+body.modal-open {
   overflow: hidden;
-  transform: scale(.9) translateY(20px);
-  transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .35s ease;
 }
 
-/* Mostrar los overlays cuando tienen .is-visible */
-.upgrade-popup.is-visible,
-.upsell-popup.is-visible,
-.upsell-overlay.is-visible {
+.upgrade-modal-overlay.is-visible .upgrade-modal-content {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Ajustes de diseño y legibilidad para el tema oscuro del modal */
+.upgrade-modal-content .upsell-header {
+  background: none;
+  padding: 0 0 1.25rem 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 190, 90, 0.15);
+  margin-bottom: 1rem;
+}
+.upgrade-modal-content .upsell-emoji {
+  font-size: 2.2rem;
+  margin-bottom: .4rem;
+}
+.upgrade-modal-content .upsell-header h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-bottom: .4rem;
+}
+.upgrade-modal-content .upsell-header p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: .9rem;
+}
+
+.upgrade-modal-content .upsell-body {
+  padding: 0;
+}
+.upgrade-modal-content .upsell-pitch {
+  margin-bottom: 1rem;
+}
+.upgrade-modal-content .upsell-pitch p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9) !important;
+  line-height: 1.65;
+}
+.upgrade-modal-content .up-diff {
+  color: var(--yellow);
+  font-size: 1.1rem;
+}
+
+/* Caja de bonos - mantiene el fondo crema pero con padding adaptado */
+.upgrade-modal-content .upsell-bonos {
+  background: var(--cream);
+  border-radius: var(--rm);
+  padding: 1rem 1.25rem;
   display: flex;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+  flex-direction: column;
+  gap: .5rem;
+  margin-bottom: 1.1rem;
+}
+.upgrade-modal-content .up-bono {
+  font-size: .87rem;
+  color: var(--text) !important; /* Texto oscuro para máxima legibilidad en fondo crema */
+  font-weight: 600;
 }
 
-/* Mostrar las tarjetas internas (modales) cuando tienen .is-visible, o cuando su contenedor padre es visible */
-.upgrade-modal.is-visible,
-.upsell-modal.is-visible,
-.upgrade-popup.is-visible .upgrade-modal,
-.upsell-popup.is-visible .upsell-modal,
-.upsell-overlay.is-visible .upsell-modal {
-  display: block;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: scale(1) translateY(0);
+/* Caja del precio de actualización */
+.upgrade-modal-content .upsell-price-box {
+  background: linear-gradient(135deg, rgba(39,174,96,.15), rgba(26,188,156,.15));
+  border: 2px solid rgba(39,174,96,.45);
+  border-radius: var(--rm);
+  padding: 1rem 1.25rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  margin-bottom: 1.25rem;
+}
+.upgrade-modal-content .up-price-label {
+  font-size: .75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--green-lt);
+}
+.upgrade-modal-content .up-price-big {
+  font-family: var(--bebas);
+  font-size: 2.8rem;
+  color: #2ecc71;
+  line-height: 1;
+}
+.upgrade-modal-content .up-extra {
+  font-size: 1.4rem;
+}
+.upgrade-modal-content .up-price-total {
+  font-size: .78rem;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.upgrade-modal-content .upsell-actions {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
 }
 
 /* Botón de cerrar (X) */
-.modal-close-btn {
+.upgrade-modal-close {
   position: absolute;
   top: 14px;
   right: 18px;
   background: none;
   border: none;
-  color: rgba(255,255,255,.7);
-  font-size: 28px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 30px;
   font-weight: 700;
   cursor: pointer;
   line-height: 1;
-  padding: 4px 8px;
-  transition: color .2s, transform .2s;
+  padding: 0 6px;
+  transition: color 0.2s, transform 0.2s;
   z-index: 10;
   font-family: Arial, sans-serif;
 }
-.modal-close-btn:hover {
+.upgrade-modal-close:hover {
   color: #fff;
   transform: scale(1.15);
 }
+
+.upgrade-modal-content .btn-up-yes {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, var(--green), #1abc9c);
+  color: #fff;
+  font-size: .97rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  padding: 17px 24px;
+  border-radius: 50px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(39,174,96,.45);
+  animation: pg 2.5s infinite;
+  border: none;
+  font-family: var(--font);
+}
+.upgrade-modal-content .btn-up-yes:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.upgrade-modal-content .btn-up-no {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: .82rem;
+  color: rgba(255, 255, 255, 0.7) !important;
+  text-decoration: underline;
+  font-family: var(--font);
+  padding: .25rem;
+  text-align: center;
+  width: 100%;
+}
+.upgrade-modal-content .btn-up-no:hover {
+  color: #fff !important;
+}
+
 
 
 .upsell-header{background:linear-gradient(135deg,#b71c1c,var(--orange));padding:1.75rem 2rem 1.25rem;text-align:center}

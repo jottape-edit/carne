@@ -161,25 +161,26 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ----------------------------------------------------------
      UPSELL POPUP — abre ao clicar no plano básico
   ---------------------------------------------------------- */
-  const overlay          = document.getElementById("upsell-overlay");
-  const basicPlanButtons = document.querySelectorAll('[data-open-upgrade], .basic-plan-button, #cta-basic');
+  const basicPlanButtons = document.querySelectorAll("[data-open-upgrade], .basic-plan-button, #cta-basic");
+  const upgradeModal     = document.querySelector(".upgrade-modal-overlay");
+  const closeButtons     = document.querySelectorAll("[data-close-upgrade], .upgrade-modal-close");
   const btnYes           = document.getElementById("upsell-yes");
   const btnNo            = document.getElementById("upsell-no");
-  const closeButtons     = document.querySelectorAll('[data-close-upgrade], .upgrade-close, .modal-close');
 
   const openPopup = e => {
     e?.preventDefault();
-    if (!overlay) return;
-    overlay.classList.add("is-visible");
+    if (!upgradeModal) {
+      console.error("Upgrade modal não encontrado");
+      return;
+    }
+    upgradeModal.classList.add("is-visible");
     document.body.classList.add("modal-open");
-    document.body.style.overflow = "hidden";
   };
 
   const closePopup = () => {
-    if (!overlay) return;
-    overlay.classList.remove("is-visible");
+    if (!upgradeModal) return;
+    upgradeModal.classList.remove("is-visible");
     document.body.classList.remove("modal-open");
-    document.body.style.overflow = "";
   };
 
   const goBasic    = () => { closePopup(); if (CONFIG.CHECKOUT_BASIC    !== "#") window.open(CONFIG.CHECKOUT_BASIC,    "_blank", "noopener"); };
@@ -211,8 +212,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Fecha ao clicar fora do modal
-  overlay?.addEventListener("click", e => {
-    if (e.target === overlay) closePopup();
+  upgradeModal?.addEventListener("click", e => {
+    if (e.target === upgradeModal) closePopup();
   });
 
   // Botão completo na landing page vai direto pro checkout
@@ -220,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e?.preventDefault();
     goComplete();
   });
+
 
 
   /* ----------------------------------------------------------
