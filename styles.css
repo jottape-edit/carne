@@ -71,9 +71,12 @@ ul{list-style:none}
 .btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 12px 36px rgba(192,57,43,.55)}
 .btn-lg{font-size:1.1rem;padding:20px 44px}
 
-/* Pulse vermelho */
-.btn-pulse{animation:pr 2.5s infinite}
-@keyframes pr{0%,100%{box-shadow:0 8px 28px rgba(192,57,43,.45)}50%{box-shadow:0 8px 40px rgba(192,57,43,.72),0 0 0 10px rgba(192,57,43,.09)}}
+/* Pulse COMPOSITED — transform+opacity only */
+.btn-pulse{animation:btn-pulse-anim 2.5s ease-in-out infinite;will-change:transform,opacity}
+@keyframes btn-pulse-anim{
+  0%,100%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.03);opacity:.92}
+}
 
 /* ============================================================
    HERO V2 (MOCKUP + MINI VSL LAZY)
@@ -640,13 +643,19 @@ ul{list-style:none}
 
 /* Faixa top */
 .ocard-ribbon{
-  background:linear-gradient(90deg,#27ae60,#1abc9c,#27ae60);
-  background-size:200% 100%;animation:ribbon-slide 3s linear infinite;
+  background:#27ae60;
+  position:relative;overflow:hidden;
   color:#fff;text-align:center;font-size:.78rem;font-weight:900;
   letter-spacing:.1em;text-transform:uppercase;padding:9px 20px;
   margin:-2rem -1.75rem 1.5rem;
 }
-@keyframes ribbon-slide{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.ocard-ribbon::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  animation:ribbon-shine 2.5s linear infinite;
+  will-change:transform;
+}
+@keyframes ribbon-shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 
 /* Urgência */
 .ocard-urgency{
@@ -687,11 +696,10 @@ ul{list-style:none}
   background:linear-gradient(135deg,var(--green),var(--green-lt));
   color:#fff;font-size:1.05rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;
   padding:20px 24px;border-radius:50px;text-align:center;cursor:pointer;
-  box-shadow:0 8px 30px rgba(39,174,96,.55),0 0 0 3px rgba(39,174,96,.2);
+  box-shadow:0 8px 30px rgba(39,174,96,.55);
   transition:filter var(--tr),transform var(--tr);
-  animation:pg 2.5s infinite
+  animation:btn-pulse-anim 2.5s ease-in-out infinite;will-change:transform,opacity
 }
-@keyframes pg{0%,100%{box-shadow:0 8px 30px rgba(39,174,96,.55),0 0 0 3px rgba(39,174,96,.2)}50%{box-shadow:0 8px 46px rgba(39,174,96,.8),0 0 0 8px rgba(39,174,96,.12)}}
 .btn-complete-offer:hover{filter:brightness(1.08);transform:translateY(-2px)}
 
 .ocard-trust{display:flex;justify-content:center;flex-wrap:wrap;gap:.6rem;margin-top:1.1rem}

@@ -8,10 +8,155 @@
   <meta property="og:title" content="90 Recetas Fáciles con Carne Molida" />
   <meta property="og:description" content="90 recetas fáciles, económicas y rendidoras para transformar la carne molida en comidas diferentes para toda la familia." />
   <meta property="og:type" content="website" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+  <!-- ═══ PRELOADS — ativos críticos do LCP ═══ -->
+  <!-- Mockup eBook (LCP principal) -->
+  <link rel="preload" as="image"
+    href="images/ebook-mockup.webp"
+    imagesrcset="images/ebook-mockup-sm.webp 200w, images/ebook-mockup.webp 280w"
+    imagesizes="(max-width:480px) 115px, 155px" />
+  <!-- Thumbnail VSL -->
+  <link rel="preload" as="image"
+    href="images/vsl-thumb-480.webp"
+    imagesrcset="images/vsl-thumb-280.webp 280w, images/vsl-thumb-360.webp 360w, images/vsl-thumb-480.webp 480w"
+    imagesizes="(max-width:480px) 240px, 280px" />
+  <!-- Fonte crítica: Nunito 900 -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Bebas+Neue&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Bebas+Neue&display=swap" />
+  </noscript>
+
+  <!-- ═══ CSS CRÍTICO INLINE (hero + barra promo) ═══ -->
+  <style>
+    :root{
+      --red:#c0392b;--orange:#e8570a;--yellow:#ffd166;
+      --green:#27ae60;--green-lt:#2ecc71;
+      --cream:#fdf8f3;--cream2:#fff5eb;
+      --dark:#1e0e06;--dark2:#2c1a0e;
+      --text:#3d2b1f;--muted:#7a5c48;--border:#e8d5c4;--white:#fff;
+      --font:'Nunito',system-ui,sans-serif;
+      --bebas:'Bebas Neue',system-ui,sans-serif;
+      --sp:clamp(56px,8vw,96px);--rm:16px;--rl:24px;
+      --sh-sm:0 2px 12px rgba(0,0,0,.08);
+      --sh-md:0 6px 30px rgba(0,0,0,.13);
+      --sh-lg:0 16px 60px rgba(0,0,0,.2);
+      --tr:.3s cubic-bezier(.4,0,.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{font-family:var(--font);background:var(--cream);color:var(--text);line-height:1.65;overflow-x:hidden}
+    img{max-width:100%;height:auto;display:block}
+    a{text-decoration:none;color:inherit}
+    ul{list-style:none}
+    .container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+    /* BARRA PROMO — animação só com transform (composited) */
+    .promo-today-bar{
+      background:#a02020;padding:10px 20px;text-align:center;
+      position:sticky;top:0;z-index:900;overflow:hidden;
+      display:flex;align-items:center;justify-content:center;gap:8px
+    }
+    .promo-today-bar::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+      animation:promo-shine 3s linear infinite;
+      will-change:transform;
+    }
+    @keyframes promo-shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+    .ptb-fire{font-size:1rem}
+    .ptb-text{color:#fff;font-size:clamp(.8rem,2.2vw,.9rem);font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+    /* HERO */
+    .hero{background:linear-gradient(160deg,#1e0e06 0%,#2c1205 50%,#1a0803 100%);position:relative;overflow:hidden;padding:0}
+    .hero::before{content:'';position:absolute;top:-80px;right:-60px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,87,10,.18) 0%,transparent 68%);pointer-events:none;z-index:0}
+    .hero .container{position:relative;z-index:1}
+    .hero-container-v2{display:flex;flex-direction:column;padding:0 16px}
+    .hero-top-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;padding-top:14px}
+    .hero-copy-col{display:flex;flex-direction:column;gap:6px}
+    .hero-eyebrow{font-size:10px;font-weight:800;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;line-height:1}
+    .hero-headline{font-family:var(--font);font-weight:900;font-size:clamp(22px,5.8vw,28px);color:#fff;line-height:1.1;text-shadow:0 2px 12px rgba(0,0,0,.4);margin:0}
+    .hl-acc{color:var(--yellow)}
+    .hero-subheadline{font-size:clamp(12px,3vw,13.5px);color:rgba(255,255,255,.83);line-height:1.4;margin:0}
+    .hero-subheadline strong{color:#fff}
+    .hero-bullets{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px}
+    .hero-bullets li{font-size:clamp(10.5px,2.6vw,12px);color:rgba(255,255,255,.78);display:flex;align-items:center;gap:5px;line-height:1.3}
+    .hb-check{color:#5ddb92;font-weight:900;font-size:11px;flex-shrink:0}
+    .hero-price-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:8px 10px 6px;backdrop-filter:blur(6px);display:flex;flex-direction:column;gap:4px;margin-top:4px}
+    .price-card-header{display:flex;align-items:center;justify-content:space-between}
+    .price-old{font-size:10.5px;color:rgba(255,255,255,.5)}
+    .price-old s{color:#ff7070}
+    .price-badge{background:var(--yellow);color:var(--dark);font-size:8px;font-weight:900;border-radius:4px;padding:2px 7px;letter-spacing:.05em}
+    .price-card-main{display:flex;align-items:center}
+    .price-current{font-family:var(--bebas);font-size:clamp(30px,7.5vw,36px);color:var(--yellow);line-height:1;letter-spacing:.02em}
+    .btn-hero{display:block;width:100%;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:clamp(11px,2.8vw,13px);font-weight:900;text-transform:uppercase;letter-spacing:.04em;padding:10px 12px;border-radius:50px;text-align:center;border:none;font-family:var(--font);cursor:pointer;line-height:1.2;
+      /* Pulse COMPOSITED — apenas transform+opacity */
+      animation:btn-pulse-anim 2.5s ease-in-out infinite;will-change:transform,opacity;
+    }
+    @keyframes btn-pulse-anim{
+      0%,100%{transform:scale(1);opacity:1}
+      50%{transform:scale(1.03);opacity:.92}
+    }
+    .btn-hero:hover{filter:brightness(1.08);transform:translateY(-1px)}
+    .price-card-micro{font-size:9.5px;color:rgba(255,255,255,.55);text-align:center}
+    /* MOCKUP */
+    .hero-mockup-col{display:flex;align-items:flex-start;justify-content:center;flex-shrink:0}
+    .hero-mockup-wrap{position:relative;width:clamp(115px,32vw,155px)}
+    .hero-mockup-img{width:100%;height:auto;display:block;filter:drop-shadow(0 8px 24px rgba(0,0,0,.55));animation:mockup-float 4s ease-in-out infinite;will-change:transform}
+    @keyframes mockup-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .mockup-badge-tl{position:absolute;top:6px;left:-8px;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:13px;font-weight:900;line-height:1;text-align:center;border-radius:50%;width:40px;height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .mockup-badge-tl span{font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+    .mockup-badge-br{position:absolute;bottom:16px;right:-10px;background:var(--yellow);color:var(--dark);font-size:9px;font-weight:800;text-align:center;line-height:1.1;padding:5px 8px;border-radius:8px}
+    .mockup-badge-br strong{font-size:14px;font-weight:900;display:block}
+    /* SOCIAL PROOF */
+    .hero-social-proof{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 0 4px}
+    .hero-social-proof .stars{color:var(--yellow);font-size:12px;letter-spacing:1px}
+    .hero-social-proof .sp-text{font-size:clamp(11px,2.6vw,12.5px);color:rgba(255,255,255,.82);font-weight:700}
+    /* VSL */
+    .hero-vsl-block{width:100%;display:flex;flex-direction:column;align-items:center;padding-bottom:14px}
+    .vsl-intro-text{font-size:11px;color:rgba(255,255,255,.65);font-weight:700;margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
+    .hero-vsl-wrapper{width:100%;max-width:240px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,198,109,.2);background:#1c0702;aspect-ratio:9/16;position:relative}
+    .vsl-thumbnail{width:100%;height:100%;position:absolute;inset:0;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .vsl-thumb-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+    .vsl-thumb-overlay{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px}
+    .vsl-play-btn{width:60px;height:60px;background:rgba(232,87,10,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(232,87,10,.2);transition:transform .25s ease}
+    .vsl-thumbnail:hover .vsl-play-btn{transform:scale(1.1)}
+    .vsl-thumb-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.06em;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+    .hero-vsl-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+    .hero-wave{position:relative;margin-top:0;line-height:0}
+    .hero-wave svg{display:block;width:100%;height:60px}
+    /* BUTTONS base */
+    .btn{display:inline-block;font-family:var(--font);font-weight:900;font-size:1rem;letter-spacing:.05em;text-transform:uppercase;border-radius:50px;padding:16px 32px;border:none;cursor:pointer;text-align:center;line-height:1.3;transition:transform var(--tr),filter var(--tr)}
+    .btn-primary{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff}
+    .btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px)}
+    .btn-lg{font-size:1.1rem;padding:20px 44px}
+    .btn-pulse{animation:btn-pulse-anim 2.5s ease-in-out infinite;will-change:transform,opacity}
+    /* Scroll reveal */
+    .reveal-up,.reveal-left,.reveal-right{opacity:0;transition:opacity .7s ease,transform .7s ease}
+    .reveal-up{transform:translateY(36px)}.reveal-left{transform:translateX(-36px)}.reveal-right{transform:translateX(36px)}
+    .reveal-up.visible,.reveal-left.visible,.reveal-right.visible{opacity:1;transform:none;transition-delay:var(--delay,0s)}
+    /* Responsive hero */
+    @media(min-width:768px){
+      .hero-top-row{gap:24px;padding-top:28px;align-items:center}
+      .hero-headline{font-size:2.1rem}
+      .hero-subheadline{font-size:1rem}
+      .hero-bullets li{font-size:13.5px;gap:7px}
+      .hero-mockup-wrap{width:clamp(180px,22vw,240px)}
+      .hero-vsl-wrapper{max-width:280px}
+      .price-current{font-size:38px}
+      .btn-hero{font-size:14px;padding:12px 18px}
+      .hero-price-card{padding:10px 14px 8px}
+      .mockup-badge-tl{width:50px;height:50px;font-size:16px;left:-12px}
+      .mockup-badge-br{font-size:11px;right:-14px}
+      .mockup-badge-br strong{font-size:18px}
+      .hero-eyebrow{font-size:12px}
+    }
+  </style>
+
+  <!-- CSS não crítico: deferido -->
+  <link rel="preload" as="style" href="styles.css" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="styles.css" /></noscript>
 </head>
 <body>
 
@@ -78,12 +223,15 @@
       <div class="hero-mockup-col">
         <div class="hero-mockup-wrap">
           <img
-            src="images/ebook-mockup-transparent.png"
+            src="images/ebook-mockup.webp"
+            srcset="images/ebook-mockup-sm.webp 200w, images/ebook-mockup.webp 280w"
+            sizes="(max-width:480px) 115px, 155px"
             alt="Guía 90 Recetas con Carne Molida"
             class="hero-mockup-img"
             width="280"
             height="370"
             fetchpriority="high"
+            decoding="async"
           />
           <div class="mockup-badge-tl">90<br/><span>recetas</span></div>
           <div class="mockup-badge-br">US$<br/><strong>5.90</strong></div>
@@ -102,13 +250,24 @@
     <div class="hero-vsl-block">
       <p class="vsl-intro-text">▶ Mira el video y descubre cómo funciona:</p>
       <div class="hero-vsl-wrapper" id="vsl-wrapper">
-        <!-- Thumbnail clicável (lazy load) -->
+        <!-- Thumbnail clicável (lazy load) — imagem WebP real -->
         <div class="vsl-thumbnail" id="vsl-thumb" role="button" tabindex="0" aria-label="Reproducir video">
+          <img
+            src="images/vsl-thumb-480.webp"
+            srcset="images/vsl-thumb-280.webp 280w, images/vsl-thumb-360.webp 360w, images/vsl-thumb-480.webp 480w"
+            sizes="(max-width:480px) 240px, 280px"
+            alt="Mini VSL — 90 Recetas con Carne Molida"
+            class="vsl-thumb-img"
+            width="480"
+            height="853"
+            fetchpriority="high"
+            decoding="async"
+          />
           <div class="vsl-thumb-overlay">
             <div class="vsl-play-btn" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="white" width="36" height="36"><path d="M8 5v14l11-7z"/></svg>
+              <svg viewBox="0 0 24 24" fill="white" width="40" height="40"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <p class="vsl-thumb-label">Toca para ver el video</p>
+            <p class="vsl-thumb-label">Toca para ver</p>
           </div>
         </div>
         <!-- iframe Wistia injetado via JS ao clicar -->
@@ -217,23 +376,23 @@
 
     <div class="recetas-fotos-grid">
       <div class="receta-foto-card reveal-up" style="--delay:.05s">
-        <div class="rfoto-wrap"><img src="images/albondigas.png" alt="Albóndigas en salsa" loading="lazy"/><div class="rfoto-overlay"><span class="rcal">🔥 ~320 kcal</span></div></div>
+        <div class="rfoto-wrap"><img src="images/albondigas.webp" alt="Albóndigas en salsa" loading="lazy" decoding="async" width="400" height="300"/><div class="rfoto-overlay"><span class="rcal">🔥 ~320 kcal</span></div></div>
         <div class="rfoto-info"><h4>Albóndigas en salsa</h4><p>Jugosas, en salsa de tomate casera. Un clásico que toda la familia pide repetir.</p><span class="rtag">⏱ 30 min · 4 porciones</span></div>
       </div>
       <div class="receta-foto-card reveal-up" style="--delay:.1s">
-        <div class="rfoto-wrap"><img src="images/tacos_carne.png" alt="Tacos de carne molida" loading="lazy"/><div class="rfoto-overlay"><span class="rcal">🔥 ~280 kcal</span></div></div>
+        <div class="rfoto-wrap"><img src="images/tacos_carne.webp" alt="Tacos de carne molida" loading="lazy" decoding="async" width="400" height="300"/><div class="rfoto-overlay"><span class="rcal">🔥 ~280 kcal</span></div></div>
         <div class="rfoto-info"><h4>Tacos de carne molida</h4><p>Rápidos, sabrosos y con los ingredientes que ya tienes en casa.</p><span class="rtag">⏱ 20 min · 3–4 porciones</span></div>
       </div>
       <div class="receta-foto-card reveal-up" style="--delay:.15s">
-        <div class="rfoto-wrap"><img src="images/pastel_papa.png" alt="Pastel de papa" loading="lazy"/><div class="rfoto-overlay"><span class="rcal">🔥 ~410 kcal</span></div></div>
+        <div class="rfoto-wrap"><img src="images/pastel_papa.webp" alt="Pastel de papa" loading="lazy" decoding="async" width="400" height="300"/><div class="rfoto-overlay"><span class="rcal">🔥 ~410 kcal</span></div></div>
         <div class="rfoto-info"><h4>Pastel de papa</h4><p>Capas de puré cremoso con carne molida sazonada. Comida completa y rendidora.</p><span class="rtag">⏱ 45 min · 6 porciones</span></div>
       </div>
       <div class="receta-foto-card reveal-up" style="--delay:.2s">
-        <div class="rfoto-wrap"><img src="images/empanadas.png" alt="Empanadas" loading="lazy"/><div class="rfoto-overlay"><span class="rcal">🔥 ~260 kcal</span></div></div>
+        <div class="rfoto-wrap"><img src="images/empanadas.webp" alt="Empanadas" loading="lazy" decoding="async" width="400" height="300"/><div class="rfoto-overlay"><span class="rcal">🔥 ~260 kcal</span></div></div>
         <div class="rfoto-info"><h4>Empanadas rellenas</h4><p>Doradas por fuera, jugosas por dentro. Para almuerzo o merienda.</p><span class="rtag">⏱ 40 min · 8–10 unidades</span></div>
       </div>
       <div class="receta-foto-card reveal-up" style="--delay:.25s">
-        <div class="rfoto-wrap"><img src="images/picadillo.png" alt="Picadillo casero" loading="lazy"/><div class="rfoto-overlay"><span class="rcal">🔥 ~350 kcal</span></div></div>
+        <div class="rfoto-wrap"><img src="images/picadillo.webp" alt="Picadillo casero" loading="lazy" decoding="async" width="400" height="300"/><div class="rfoto-overlay"><span class="rcal">🔥 ~350 kcal</span></div></div>
         <div class="rfoto-info"><h4>Picadillo casero</h4><p>Carne molida con papa, tomate y especias. Rinde mucho y queda delicioso.</p><span class="rtag">⏱ 25 min · 4–5 porciones</span></div>
       </div>
     </div>
@@ -251,7 +410,7 @@
 <section class="seccion-paraquien" id="para-quien">
   <div class="container">
     <div class="paraquien-inner">
-      <div class="paraquien-img reveal-left"><img src="images/woman_cooking.png" alt="Mujer cocinando en casa" loading="lazy"/></div>
+      <div class="paraquien-img reveal-left"><img src="images/woman_cooking.webp" alt="Mujer cocinando en casa" loading="lazy" decoding="async" width="520" height="480"/></div>
       <div class="paraquien-text reveal-right">
         <h2 class="section-title left-align">Este guía es perfecto<br><span class="highlight">para ti si…</span></h2>
         <ul class="paraquien-lista">
@@ -341,7 +500,7 @@
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
         <div class="test-autor">
-          <div class="test-av-photo"><img src="images/av_maria.png" alt="María G."/></div>
+          <div class="test-av-photo"><img src="images/av_maria.webp" alt="María G." loading="lazy" decoding="async" width="84" height="84"/></div>
           <div class="test-autor-info">
             <strong>María G.</strong>
             <span class="test-date">15 de enero de 2025 · 🇲🇽 México</span>
@@ -354,7 +513,7 @@
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
         <div class="test-autor">
-          <div class="test-av-photo"><img src="images/av_carolina.png" alt="Carolina R."/></div>
+          <div class="test-av-photo"><img src="images/av_carolina.webp" alt="Carolina R." loading="lazy" decoding="async" width="84" height="84"/></div>
           <div class="test-autor-info">
             <strong>Carolina R.</strong>
             <span class="test-date">14 de enero de 2025 · 🇨🇴 Colombia</span>
@@ -367,7 +526,7 @@
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
         <div class="test-autor">
-          <div class="test-av-photo"><img src="images/av_lucia.png" alt="Lucía M."/></div>
+          <div class="test-av-photo"><img src="images/av_lucia.webp" alt="Lucía M." loading="lazy" decoding="async" width="84" height="84"/></div>
           <div class="test-autor-info">
             <strong>Lucía M.</strong>
             <span class="test-date">5 de febrero de 2025 · 🇨🇱 Chile</span>
@@ -380,7 +539,7 @@
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
         <div class="test-autor">
-          <div class="test-av-photo"><img src="images/av_valeria.png" alt="Valeria S."/></div>
+          <div class="test-av-photo"><img src="images/av_valeria.webp" alt="Valeria S." loading="lazy" decoding="async" width="84" height="84"/></div>
           <div class="test-autor-info">
             <strong>Valeria S.</strong>
             <span class="test-date">12 de febrero de 2025 · 🇵🇪 Perú</span>
@@ -393,7 +552,7 @@
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
         <div class="test-autor">
-          <div class="test-av-photo"><img src="images/av_sofia.png" alt="Sofía A."/></div>
+          <div class="test-av-photo"><img src="images/av_sofia.webp" alt="Sofía A." loading="lazy" decoding="async" width="84" height="84"/></div>
           <div class="test-autor-info">
             <strong>Sofía A.</strong>
             <span class="test-date">20 de febrero de 2025 · 🇦🇷 Argentina</span>
@@ -406,7 +565,7 @@
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
         <div class="test-autor">
-          <div class="test-av-photo"><img src="images/av_paola.png" alt="Paola R."/></div>
+          <div class="test-av-photo"><img src="images/av_paola.webp" alt="Paola R." loading="lazy" decoding="async" width="84" height="84"/></div>
           <div class="test-autor-info">
             <strong>Paola R.</strong>
             <span class="test-date">1 de marzo de 2025 · 🇻🇪 Venezuela</span>
