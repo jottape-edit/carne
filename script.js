@@ -166,29 +166,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnYes    = document.getElementById("upsell-yes");
   const btnNo     = document.getElementById("upsell-no");
 
-  const openUp  = e => {
+  const openUp = e => {
     e?.preventDefault();
     if (!overlay) return;
     overlay.style.display = "flex";
-    // força reflow para a transição funcionar
-    overlay.offsetHeight;
-    overlay.classList.add("active");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        overlay.classList.add("active");
+      });
+    });
     document.body.style.overflow = "hidden";
   };
+
   const closeUp = () => {
     if (!overlay) return;
     overlay.classList.remove("active");
     document.body.style.overflow = "";
-    // aguarda transição antes de esconder
-    overlay.addEventListener("transitionend", () => {
-      if (!overlay.classList.contains("active")) overlay.style.display = "none";
-    }, { once: true });
+    setTimeout(() => { overlay.style.display = "none"; }, 400);
   };
+
   const goBasic    = () => { closeUp(); if (CONFIG.CHECKOUT_BASIC    !== "#") window.open(CONFIG.CHECKOUT_BASIC,    "_blank", "noopener"); };
   const goComplete = () => { closeUp(); if (CONFIG.CHECKOUT_COMPLETE !== "#") window.open(CONFIG.CHECKOUT_COMPLETE, "_blank", "noopener"); };
 
   btnBasic?.addEventListener("click", openUp);
-  btnNo?.addEventListener("click", goBasic);          // diz "não" → vai pro checkout básico
+  btnNo?.addEventListener("click", goBasic);
   btnYes?.addEventListener("click", e => { e.preventDefault(); goComplete(); });
 
   // Fechar ao clicar fora
