@@ -890,3 +890,21 @@ ul{list-style:none}
   .contenido-grid{grid-template-columns:1fr}
   .m-badge{font-size:.62rem;padding:4px 8px}
 }
+
+/* Footer links */
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 12px;
+}
+.footer-links a {
+  font-size: .78rem;
+  font-weight: 700;
+  color: rgba(255,209,102,.55);
+  transition: color .2s;
+  text-decoration: none;
+}
+.footer-links a:hover {
+  color: #ffd166;
+}

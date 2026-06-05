@@ -44,9 +44,17 @@
         ]
       }
     ],
+    "redirects": [
+      { "source": "/suporte", "destination": "/soporte", "type": 301 },
+      { "source": "/suporte/", "destination": "/soporte", "type": 301 },
+      { "source": "/privacidade", "destination": "/privacidad", "type": 301 },
+      { "source": "/privacidade/", "destination": "/privacidad", "type": 301 }
+    ],
     "rewrites": [
       { "source": "/soporte", "destination": "/soporte.html" },
       { "source": "/soporte/", "destination": "/soporte.html" },
+      { "source": "/privacidad", "destination": "/privacidad.html" },
+      { "source": "/privacidad/", "destination": "/privacidad.html" },
       { "source": "**", "destination": "/index.html" }
     ]
   }
