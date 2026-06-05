@@ -79,28 +79,42 @@
     .ptb-text{color:#fff;font-size:clamp(.8rem,2.2vw,.9rem);font-weight:900;letter-spacing:.08em;text-transform:uppercase}
     /* HERO */
     .hero{background:linear-gradient(160deg,#1e0e06 0%,#2c1205 50%,#1a0803 100%);position:relative;overflow:hidden;padding:0}
-    .hero::before{content:'';position:absolute;top:-80px;right:-60px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,87,10,.18) 0%,transparent 68%);pointer-events:none;z-index:0}
-    .hero .container{position:relative;z-index:1}
-    .hero-container-v2{display:flex;flex-direction:column;padding:0 16px}
-    .hero-top-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;padding-top:14px}
-    .hero-copy-col{display:flex;flex-direction:column;gap:6px}
-    .hero-eyebrow{font-size:10px;font-weight:800;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;line-height:1}
-    .hero-headline{font-family:var(--font);font-weight:900;font-size:clamp(22px,5.8vw,28px);color:#fff;line-height:1.1;text-shadow:0 2px 12px rgba(0,0,0,.4);margin:0}
-    .hl-acc{color:var(--yellow)}
-    .hero-subheadline{font-size:clamp(12px,3vw,13.5px);color:rgba(255,255,255,.83);line-height:1.4;margin:0}
+    .hero::before{content:'';position:absolute;top:-100px;right:-80px;width:600px;height:600px;background:radial-gradient(circle,rgba(232,87,10,.18) 0%,transparent 68%);pointer-events:none;z-index:0}
+    .hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(192,57,43,.12) 0%,transparent 68%);pointer-events:none;z-index:0}
+    .hero .container{position:relative;z-index:1;padding:0 18px}
+    .hero-container-vsl{display:flex;flex-direction:column;align-items:center;text-align:center}
+    
+    /* HEADLINE + SUBHEADLINE */
+    .hero-header-block{text-align:center;padding-top:18px;margin-bottom:12px}
+    .hero-headline{font-family:var(--font);font-weight:900;font-size:clamp(26px,6vw,30px);color:#fff;line-height:1.1;text-shadow:0 2px 12px rgba(0,0,0,.4);max-width:680px;margin:0 auto}
+    .hl-br{display:block}
+    .hero-subheadline{font-size:clamp(14px,3.5vw,15px);color:rgba(255,255,255,.88);line-height:1.45;margin-top:8px;max-width:540px;margin-left:auto;margin-right:auto}
     .hero-subheadline strong{color:#fff}
-    .hero-bullets{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px}
-    .hero-bullets li{font-size:clamp(10.5px,2.6vw,12px);color:rgba(255,255,255,.78);display:flex;align-items:center;gap:5px;line-height:1.3}
-    .hb-check{color:#5ddb92;font-weight:900;font-size:11px;flex-shrink:0}
-    .hero-price-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:8px 10px 6px;backdrop-filter:blur(6px);display:flex;flex-direction:column;gap:4px;margin-top:4px}
-    .price-card-header{display:flex;align-items:center;justify-content:space-between}
-    .price-old{font-size:10.5px;color:rgba(255,255,255,.5)}
-    .price-old s{color:#ff7070}
-    .price-badge{background:var(--yellow);color:var(--dark);font-size:8px;font-weight:900;border-radius:4px;padding:2px 7px;letter-spacing:.05em}
-    .price-card-main{display:flex;align-items:center}
-    .price-current{font-family:var(--bebas);font-size:clamp(30px,7.5vw,36px);color:var(--yellow);line-height:1;letter-spacing:.02em}
-    .btn-hero{display:block;width:100%;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:clamp(11px,2.8vw,13px);font-weight:900;text-transform:uppercase;letter-spacing:.04em;padding:10px 12px;border-radius:50px;text-align:center;border:none;font-family:var(--font);cursor:pointer;line-height:1.2;
-      /* Pulse COMPOSITED — apenas transform+opacity */
+    
+    /* VIDEO BLOCK (VSL) */
+    .hero-vsl-block{width:100%;max-width:100%;display:flex;flex-direction:column;align-items:center}
+    .vsl-intro-text{font-size:12.5px;color:rgba(255,255,255,.7);font-weight:700;margin-bottom:4px;letter-spacing:.05em;text-transform:uppercase}
+    .hero-vsl-wrapper{width:100%;max-width:250px;margin:8px auto 12px auto;border-radius:18px;overflow:hidden;box-shadow:0 0 28px rgba(255,91,31,.32);border:1px solid rgba(255,198,109,.22);background:#1c0702;transition:transform .3s ease;aspect-ratio:9/16;position:relative}
+    .hero-vsl-wrapper:hover{transform:scale(1.01)}
+    
+    .vsl-thumbnail{width:100%;height:100%;position:absolute;inset:0;background:linear-gradient(160deg,#2a0f03,#1a0603);cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .vsl-thumbnail:focus{outline:2px solid var(--yellow);outline-offset:2px}
+    .vsl-thumb-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+    .vsl-thumb-overlay{display:flex;flex-direction:column;align-items:center;gap:10px;position:relative;z-index:1}
+    .vsl-play-btn{width:60px;height:60px;background:rgba(232,87,10,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(232,87,10,.2);transition:transform .25s ease,background .25s ease}
+    .vsl-thumbnail:hover .vsl-play-btn{transform:scale(1.1);background:rgba(232,87,10,1)}
+    .vsl-thumb-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:.06em}
+    .hero-vsl-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+    
+    /* CARD DE PREÇO COMPACTO */
+    .hero-price-card{width:100%;max-width:350px;padding:10px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;box-shadow:0 8px 32px rgba(0, 0, 0, 0.25);backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:6px;text-align:center;margin-bottom:12px}
+    .price-card-header{display:flex;align-items:center;justify-content:space-between;padding:0 4px}
+    .price-old{font-size:11.5px;color:rgba(255,255,255,.55)}
+    .price-old s{color:#ff6b6b}
+    .price-badge{background:var(--yellow);color:var(--dark);font-size:8.5px;font-weight:900;border-radius:4px;padding:2px 8px;letter-spacing:.05em}
+    .price-card-main{display:flex;align-items:center;justify-content:center;margin:-2px 0}
+    .price-current{font-family:var(--bebas);font-size:clamp(34px,8vw,40px);color:var(--yellow);line-height:1;letter-spacing:.02em}
+    .btn-hero{display:block;width:100%;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:clamp(13.5px,3.2vw,14.5px);font-weight:900;text-transform:uppercase;letter-spacing:.05em;padding:12px 18px;border-radius:50px;text-align:center;box-shadow:0 6px 18px rgba(192,57,43,.45);border:none;font-family:var(--font);cursor:pointer;transition:transform var(--tr);line-height:1.2;
       animation:btn-pulse-anim 2.5s ease-in-out infinite;will-change:transform,opacity;
     }
     @keyframes btn-pulse-anim{
@@ -108,58 +122,69 @@
       50%{transform:scale(1.03);opacity:.92}
     }
     .btn-hero:hover{filter:brightness(1.08);transform:translateY(-1px)}
-    .price-card-micro{font-size:9.5px;color:rgba(255,255,255,.55);text-align:center}
-    /* MOCKUP */
-    .hero-mockup-col{display:flex;align-items:flex-start;justify-content:center;flex-shrink:0}
-    .hero-mockup-wrap{position:relative;width:clamp(115px,32vw,155px)}
-    .hero-mockup-img{width:100%;height:auto;display:block;filter:drop-shadow(0 8px 24px rgba(0,0,0,.55));animation:mockup-float 4s ease-in-out infinite;will-change:transform}
-    @keyframes mockup-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-    .mockup-badge-tl{position:absolute;top:6px;left:-8px;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:13px;font-weight:900;line-height:1;text-align:center;border-radius:50%;width:40px;height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-    .mockup-badge-tl span{font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-    .mockup-badge-br{position:absolute;bottom:16px;right:-10px;background:var(--yellow);color:var(--dark);font-size:9px;font-weight:800;text-align:center;line-height:1.1;padding:5px 8px;border-radius:8px}
-    .mockup-badge-br strong{font-size:14px;font-weight:900;display:block}
+    .price-card-micro{font-size:10.5px;color:rgba(255,255,255,.6)}
+    
     /* SOCIAL PROOF */
-    .hero-social-proof{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 0 4px}
-    .hero-social-proof .stars{color:var(--yellow);font-size:12px;letter-spacing:1px}
-    .hero-social-proof .sp-text{font-size:clamp(11px,2.6vw,12.5px);color:rgba(255,255,255,.82);font-weight:700}
-    /* VSL */
-    .hero-vsl-block{width:100%;display:flex;flex-direction:column;align-items:center;padding-bottom:14px}
-    .vsl-intro-text{font-size:11px;color:rgba(255,255,255,.65);font-weight:700;margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
-    .hero-vsl-wrapper{width:100%;max-width:240px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,198,109,.2);background:#1c0702;aspect-ratio:9/16;position:relative}
-    .vsl-thumbnail{width:100%;height:100%;position:absolute;inset:0;cursor:pointer;display:flex;align-items:center;justify-content:center}
-    .vsl-thumb-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-    .vsl-thumb-overlay{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px}
-    .vsl-play-btn{width:60px;height:60px;background:rgba(232,87,10,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(232,87,10,.2);transition:transform .25s ease}
-    .vsl-thumbnail:hover .vsl-play-btn{transform:scale(1.1)}
-    .vsl-thumb-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.06em;text-shadow:0 1px 4px rgba(0,0,0,.6)}
-    .hero-vsl-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+    .hero-social-proof{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px}
+    .hero-social-proof .stars{color:var(--yellow);font-size:13.5px;letter-spacing:1px}
+    .hero-social-proof .sp-text{font-size:clamp(12px,2.8vw,13px);color:rgba(255,255,255,.85);font-weight:700}
+    
+    /* LEYENDA FINAL */
+    .hero-tagline{font-size:clamp(10.5px,2.5vw,11.5px);color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:16px}
+    
     .hero-wave{position:relative;margin-top:0;line-height:0}
     .hero-wave svg{display:block;width:100%;height:60px}
+    
     /* BUTTONS base */
     .btn{display:inline-block;font-family:var(--font);font-weight:900;font-size:1rem;letter-spacing:.05em;text-transform:uppercase;border-radius:50px;padding:16px 32px;border:none;cursor:pointer;text-align:center;line-height:1.3;transition:transform var(--tr),filter var(--tr)}
     .btn-primary{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff}
     .btn-primary:hover{filter:brightness(1.08);transform:translateY(-2px)}
     .btn-lg{font-size:1.1rem;padding:20px 44px}
     .btn-pulse{animation:btn-pulse-anim 2.5s ease-in-out infinite;will-change:transform,opacity}
+    
     /* Scroll reveal */
     .reveal-up,.reveal-left,.reveal-right{opacity:0;transition:opacity .7s ease,transform .7s ease}
     .reveal-up{transform:translateY(36px)}.reveal-left{transform:translateX(-36px)}.reveal-right{transform:translateX(36px)}
     .reveal-up.visible,.reveal-left.visible,.reveal-right.visible{opacity:1;transform:none;transition-delay:var(--delay,0s)}
+    
+    /* UPSELL/UPGRADE FOUC PREVENTION */
+    .upsell-overlay,
+    .upsell-modal,
+    .upgrade-popup,
+    .upgrade-modal,
+    .upsell-popup,
+    [data-upgrade-popup],
+    [data-upsell-popup] {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+    
+    .upsell-overlay.active,
+    .upsell-overlay.is-visible,
+    .upsell-modal.is-visible,
+    .upgrade-popup.is-visible,
+    .upgrade-modal.is-visible,
+    .upsell-popup.is-visible,
+    [data-upgrade-popup].is-visible,
+    [data-upsell-popup].is-visible {
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+    
     /* Responsive hero */
     @media(min-width:768px){
-      .hero-top-row{gap:24px;padding-top:28px;align-items:center}
-      .hero-headline{font-size:2.1rem}
-      .hero-subheadline{font-size:1rem}
-      .hero-bullets li{font-size:13.5px;gap:7px}
-      .hero-mockup-wrap{width:clamp(180px,22vw,240px)}
-      .hero-vsl-wrapper{max-width:280px}
-      .price-current{font-size:38px}
-      .btn-hero{font-size:14px;padding:12px 18px}
-      .hero-price-card{padding:10px 14px 8px}
-      .mockup-badge-tl{width:50px;height:50px;font-size:16px;left:-12px}
-      .mockup-badge-br{font-size:11px;right:-14px}
-      .mockup-badge-br strong{font-size:18px}
-      .hero-eyebrow{font-size:12px}
+      .hero-header-block{padding-top:32px;margin-bottom:18px}
+      .hero-headline{font-size:2.5rem}
+      .hl-br{display:inline}
+      .hero-subheadline{font-size:1.1rem}
+      .hero-vsl-wrapper{max-width:320px;margin-top:14px;margin-bottom:16px}
+      .hero-price-card{max-width:360px;padding:12px 16px}
+      .price-current{font-size:42px}
+      .btn-hero{font-size:15px}
     }
   </style>
 
@@ -179,85 +204,25 @@
 </div>
 
 <!-- ================================================================
-     HERO SECTION V2 — MOCKUP + MINI VSL LAZY
+     HERO SECTION — MINI VSL WISTIA
 ================================================================ -->
 <section class="hero" id="hero">
-  <div class="container hero-container-v2">
+  <div class="container hero-container-vsl">
 
-    <!-- TOPO: 2 colunas — copy | mockup -->
-    <div class="hero-top-row">
-
-      <!-- COLUNA ESQUERDA: copy + price + CTA -->
-      <div class="hero-copy-col">
-
-        <!-- Eyebrow -->
-        <div class="hero-eyebrow">📘 Guía Digital · Acceso Inmediato</div>
-
-        <!-- HEADLINE -->
-        <h1 class="hero-headline">
-          ¿Siempre preparas la<br/>
-          <span class="hl-acc">carne molida igual?</span>
-        </h1>
-
-        <!-- SUBHEADLINE -->
-        <p class="hero-subheadline">
-          Descubre <strong>90 recetas fáciles</strong> para transformarla en comidas diferentes, económicas y deliciosas para tu familia.
-        </p>
-
-        <!-- BULLETS RÁPIDOS -->
-        <ul class="hero-bullets">
-          <li><span class="hb-check">✓</span> Sin ser chef · ingredientes simples</li>
-          <li><span class="hb-check">✓</span> Listo en minutos · todo en tu celular</li>
-          <li><span class="hb-check">✓</span> +2.800 familias ya usaron</li>
-        </ul>
-
-        <!-- PRICE CARD COMPACTO -->
-        <div class="hero-price-card">
-          <div class="price-card-header">
-            <span class="price-old">De <s>US$ 19.90</s></span>
-            <span class="price-badge">LANZAMIENTO</span>
-          </div>
-          <div class="price-card-main">
-            <span class="price-current">US$ 5.90</span>
-          </div>
-          <a href="#" id="cta-hero" class="btn btn-hero btn-pulse">
-            QUIERO MIS 90 RECETAS →
-          </a>
-          <p class="price-card-micro">🔒 Acceso inmediato · Pago seguro</p>
-        </div>
-
-      </div><!-- /hero-copy-col -->
-
-      <!-- COLUNA DIREITA: mockup do eBook -->
-      <div class="hero-mockup-col">
-        <div class="hero-mockup-wrap">
-          <img
-            src="images/ebook-mockup.webp"
-            srcset="images/ebook-mockup-sm.webp 200w, images/ebook-mockup.webp 280w"
-            sizes="(max-width:480px) 115px, 155px"
-            alt="Guía 90 Recetas con Carne Molida"
-            class="hero-mockup-img"
-            width="280"
-            height="370"
-            fetchpriority="high"
-            decoding="async"
-          />
-          <div class="mockup-badge-tl">90<br/><span>recetas</span></div>
-          <div class="mockup-badge-br">US$<br/><strong>5.90</strong></div>
-        </div>
-      </div><!-- /hero-mockup-col -->
-
-    </div><!-- /hero-top-row -->
-
-    <!-- SOCIAL PROOF -->
-    <div class="hero-social-proof">
-      <span class="stars">⭐⭐⭐⭐⭐</span>
-      <span class="sp-text">+2.800 familias en Latinoamérica</span>
+    <!-- HEADLINE + SUBHEADLINE -->
+    <div class="hero-header-block">
+      <h1 class="hero-headline">
+        ¿Siempre preparas la<br class="hl-br"/> carne molida igual?
+      </h1>
+      <p class="hero-subheadline">
+        Descubre cómo convertir la misma carne molida en platos con apariencia de restaurante, sin ser chef y sin gastar de más.
+      </p>
     </div>
 
-    <!-- VSL LAZY — thumbnail clicável carrega Wistia -->
+    <!-- VIDEO BLOCK (VSL) -->
     <div class="hero-vsl-block">
       <p class="vsl-intro-text">▶ Mira el video y descubre cómo funciona:</p>
+      
       <div class="hero-vsl-wrapper" id="vsl-wrapper">
         <!-- Thumbnail clicável (lazy load) — imagem WebP real -->
         <div class="vsl-thumbnail" id="vsl-thumb" role="button" tabindex="0" aria-label="Reproducir video">
@@ -283,7 +248,31 @@
       </div>
     </div>
 
-  </div><!-- /container -->
+    <!-- CARD DE OFERTA COMPACTO -->
+    <div class="hero-price-card">
+      <div class="price-card-header">
+        <span class="price-old">De <s>US$ 19.90</s></span>
+        <span class="price-badge">LANZAMIENTO</span>
+      </div>
+      <div class="price-card-main">
+        <span class="price-current">US$ 5.90</span>
+      </div>
+      <a href="#" id="cta-hero" class="btn btn-hero btn-pulse">
+        QUIERO MIS 90 RECETAS AHORA
+      </a>
+      <p class="price-card-micro">Acceso digital inmediato • Pago seguro</p>
+    </div>
+
+    <!-- SOCIAL PROOF / VALORACIÓN -->
+    <div class="hero-social-proof">
+      <span class="stars">⭐⭐⭐⭐⭐</span>
+      <span class="sp-text">+2.800 familias ya accedieron en Latinoamérica</span>
+    </div>
+
+    <!-- LEYENDA FINAL -->
+    <p class="hero-tagline">Low carb • Rápidas • Caseras • Para toda la familia</p>
+
+  </div>
 
   <!-- Onda decorativa -->
   <div class="hero-wave">
@@ -487,19 +476,38 @@
       <p class="test-big-desc">Resultados reales de quienes ya aplicaron las recetas en casa</p>
     </div>
 
-    <!-- Bloco de rating -->
-    <div class="rating-block reveal-up">
-      <div class="rating-score-side">
-        <span class="rating-num">4.9</span>
-        <div class="rating-stars-big">★★★★★</div>
-        <span class="rating-count">2.847 evaluaciones</span>
-      </div>
-      <div class="rating-bars-side">
-        <div class="rbar-row"><span class="rbar-label">5</span><div class="rbar-track"><div class="rbar-fill" style="width:91%"></div></div></div>
-        <div class="rbar-row"><span class="rbar-label">4</span><div class="rbar-track"><div class="rbar-fill rbar-thin" style="width:6%"></div></div></div>
-        <div class="rbar-row"><span class="rbar-label">3</span><div class="rbar-track"><div class="rbar-fill rbar-thin" style="width:2%"></div></div></div>
-        <div class="rbar-row"><span class="rbar-label">2</span><div class="rbar-track"><div class="rbar-fill rbar-thin" style="width:1%"></div></div></div>
-        <div class="rbar-row"><span class="rbar-label">1</span><div class="rbar-track"><div class="rbar-fill rbar-thin" style="width:0%"></div></div></div>
+    <!-- Bloco de rating (Corrigido) -->
+    <div class="rating-summary-card reveal-up">
+      <div class="rating-score">4.9</div>
+      <div class="rating-stars">★★★★★</div>
+      <div class="rating-count">2.847 evaluaciones</div>
+      
+      <div class="rating-bars">
+        <div class="rating-row">
+          <span>5 ★</span>
+          <div class="rating-bar"><div class="rating-bar-fill" style="width:91%"></div></div>
+          <span>91%</span>
+        </div>
+        <div class="rating-row">
+          <span>4 ★</span>
+          <div class="rating-bar"><div class="rating-bar-fill" style="width:6%"></div></div>
+          <span>6%</span>
+        </div>
+        <div class="rating-row">
+          <span>3 ★</span>
+          <div class="rating-bar"><div class="rating-bar-fill" style="width:2%"></div></div>
+          <span>2%</span>
+        </div>
+        <div class="rating-row">
+          <span>2 ★</span>
+          <div class="rating-bar"><div class="rating-bar-fill" style="width:1%"></div></div>
+          <span>1%</span>
+        </div>
+        <div class="rating-row">
+          <span>1 ★</span>
+          <div class="rating-bar"><div class="rating-bar-fill" style="width:0%"></div></div>
+          <span>0%</span>
+        </div>
       </div>
     </div>
 
