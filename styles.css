@@ -586,18 +586,31 @@ ul{list-style:none}
   width: 100%;
 }
 .rating-row {
-  display: grid;
-  grid-template-columns: 34px 1fr 42px;
+  display: grid !important;
+  grid-template-columns: 32px 1fr 36px;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
+  gap: 6px;
+  font-size: 12px;
   color: var(--text);
+  width: 100%;
+}
+.rating-row span:first-child {
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 700;
+}
+.rating-row span:last-child {
+  text-align: left;
+  white-space: nowrap;
+  color: var(--muted);
 }
 .rating-bar {
   height: 8px;
   border-radius: 999px;
   background: #f1dfd7;
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
 }
 .rating-bar-fill {
   height: 100%;
@@ -907,4 +920,76 @@ ul{list-style:none}
 }
 .footer-links a:hover {
   color: #ffd166;
+}
+
+/* ============================================================
+   RATING STRIP — antes del footer
+   ============================================================ */
+.rating-strip {
+  background: #fff;
+  border-top: 2px solid var(--border);
+  padding: 28px 20px;
+}
+.rating-strip-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.rs-score-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+  text-align: center;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  padding-right: 28px;
+}
+.rs-number {
+  font-family: var(--bebas);
+  font-size: 52px;
+  line-height: 1;
+  color: var(--dark);
+}
+.rs-stars {
+  font-size: 18px;
+  color: var(--red);
+  letter-spacing: 2px;
+  margin: 4px 0;
+}
+.rs-count {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.rs-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+@media (max-width: 520px) {
+  .rating-strip-inner {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  .rs-score-block {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding-right: 0;
+    padding-bottom: 16px;
+    min-width: unset;
+    text-align: left;
+  }
+  .rs-number { font-size: 44px; }
+  .rs-stars { font-size: 16px; }
 }
