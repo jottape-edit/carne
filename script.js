@@ -175,6 +175,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     upgradeModal.classList.add("is-visible");
     document.body.classList.add("modal-open");
+
+    console.log("Basic plan clicked");
+    console.log("Modal element:", upgradeModal);
+    console.log("Modal classes:", upgradeModal?.className);
+    console.log("Modal computed display:", window.getComputedStyle(upgradeModal).display);
+    const contentEl = document.querySelector(".upgrade-modal-content");
+    console.log("Modal content:", contentEl);
+    if (contentEl) {
+      console.log("Modal content computed display:", window.getComputedStyle(contentEl).display);
+      console.log("Modal content computed visibility:", window.getComputedStyle(contentEl).visibility);
+      console.log("Modal content computed opacity:", window.getComputedStyle(contentEl).opacity);
+      console.log("Modal content computed z-index:", window.getComputedStyle(contentEl).zIndex);
+    }
   };
 
   const closePopup = () => {
