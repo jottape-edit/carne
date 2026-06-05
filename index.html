@@ -147,32 +147,8 @@
     .reveal-up{transform:translateY(36px)}.reveal-left{transform:translateX(-36px)}.reveal-right{transform:translateX(36px)}
     .reveal-up.visible,.reveal-left.visible,.reveal-right.visible{opacity:1;transform:none;transition-delay:var(--delay,0s)}
     
-    /* UPSELL/UPGRADE FOUC PREVENTION */
-    .upsell-modal,
-    .upgrade-popup,
-    .upgrade-modal,
-    .upsell-popup,
-    [data-upgrade-popup],
-    [data-upsell-popup] {
-      display: none !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
-      pointer-events: none !important;
-    }
-    
-    .upsell-overlay.active,
-    .upsell-overlay.is-visible,
-    .upsell-modal.is-visible,
-    .upgrade-popup.is-visible,
-    .upgrade-modal.is-visible,
-    .upsell-popup.is-visible,
-    [data-upgrade-popup].is-visible,
-    [data-upsell-popup].is-visible {
-      display: flex !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      pointer-events: auto !important;
-    }
+
+
     
     /* Responsive hero */
     @media(min-width:768px){
