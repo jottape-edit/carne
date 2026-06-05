@@ -45,6 +45,8 @@
       }
     ],
     "rewrites": [
+      { "source": "/soporte", "destination": "/soporte/index.html" },
+      { "source": "/soporte/", "destination": "/soporte/index.html" },
       { "source": "**", "destination": "/index.html" }
     ]
   }
