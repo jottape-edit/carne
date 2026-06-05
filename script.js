@@ -10,8 +10,9 @@ const CONFIG = {
   PRICE_BASIC:       "US$ 5.90",
   PRICE_COMPLETE:    "US$ 19.90",
   PRICE_UPSELL_ADD:  "US$ 9.90",   // valor ADICIONAL cobrado no upsell
-  CHECKOUT_BASIC:    "#",           // ← Link checkout básico
-  CHECKOUT_COMPLETE: "#",           // ← Link checkout completo
+  CHECKOUT_BASIC:    "https://pay.mycheckoutt.com/019e982f-1b3c-7038-86cd-36f92aac8343?ref=",
+  CHECKOUT_COMPLETE: "https://pay.mycheckoutt.com/019e98ef-8555-7351-baf9-8837b73987ff?ref=",
+  CHECKOUT_UPGRADE:  "https://pay.mycheckoutt.com/019e98f0-03cf-70a1-b0ae-5bc28f1ad270?ref=",
   GUARANTEE_DAYS:    "7",
   COUNTDOWN_HOURS:   23,            // horas do timer ao abrir pela 1ª vez
   COUNTDOWN_KEY:     "cm90_end",    // chave localStorage
@@ -175,19 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     upgradeModal.classList.add("is-visible");
     document.body.classList.add("modal-open");
-
-    console.log("Basic plan clicked");
-    console.log("Modal element:", upgradeModal);
-    console.log("Modal classes:", upgradeModal?.className);
-    console.log("Modal computed display:", window.getComputedStyle(upgradeModal).display);
-    const contentEl = document.querySelector(".upgrade-modal-content");
-    console.log("Modal content:", contentEl);
-    if (contentEl) {
-      console.log("Modal content computed display:", window.getComputedStyle(contentEl).display);
-      console.log("Modal content computed visibility:", window.getComputedStyle(contentEl).visibility);
-      console.log("Modal content computed opacity:", window.getComputedStyle(contentEl).opacity);
-      console.log("Modal content computed z-index:", window.getComputedStyle(contentEl).zIndex);
-    }
   };
 
   const closePopup = () => {
@@ -198,6 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const goBasic    = () => { closePopup(); if (CONFIG.CHECKOUT_BASIC    !== "#") window.open(CONFIG.CHECKOUT_BASIC,    "_blank", "noopener"); };
   const goComplete = () => { closePopup(); if (CONFIG.CHECKOUT_COMPLETE !== "#") window.open(CONFIG.CHECKOUT_COMPLETE, "_blank", "noopener"); };
+  const goUpgrade  = () => { closePopup(); if (CONFIG.CHECKOUT_UPGRADE  !== "#") window.open(CONFIG.CHECKOUT_UPGRADE,  "_blank", "noopener"); };
 
   // Abre popup ao clicar no botão do plano básico
   basicPlanButtons.forEach(button => {
@@ -218,10 +207,10 @@ document.addEventListener("DOMContentLoaded", () => {
     goBasic();
   });
 
-  // Botão de checkout do plano completo (dentro do popup)
+  // Botão de checkout del plano upgrade (dentro del popup)
   btnYes?.addEventListener("click", e => {
     e?.preventDefault();
-    goComplete();
+    goUpgrade();
   });
 
   // Fecha ao clicar fora do modal
@@ -301,6 +290,133 @@ document.addEventListener("DOMContentLoaded", () => {
     }));
     document.querySelectorAll('img[loading="lazy"]').forEach(img => io.observe(img));
   }
+
+  /* ----------------------------------------------------------
+     LOCAL CURRENCY CONVERSION — Geolocation & Exchange Rate
+  ---------------------------------------------------------- */
+  (async () => {
+    // 1. Get user currency code via fallback chain
+    const getCurrencyCode = async () => {
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.currency) return data.currency;
+        }
+      } catch (e) {
+        // ignore and fallback
+      }
+      try {
+        const res = await fetch("https://ipwho.is/");
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.success && data.currency && data.currency.code) {
+            return data.currency.code;
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
+      return null;
+    };
+
+    try {
+      const localCurrency = await getCurrencyCode();
+      if (!localCurrency || localCurrency === "USD") return;
+
+      // 2. Get exchange rate
+      const rateRes = await fetch("https://open.er-api.com/v6/latest/USD");
+      if (!rateRes.ok) return;
+      const rateData = await rateRes.json();
+      const rate = rateData && rateData.rates && rateData.rates[localCurrency];
+      if (!rate) return;
+
+      // Helper function to format currency value
+      const formatLocal = (usdVal) => {
+        const localVal = usdVal * rate;
+        const formatted = new Intl.NumberFormat(undefined, {
+          style: 'currency',
+          currency: localCurrency
+        }).format(localVal);
+        return `(~ ${formatted} ${localCurrency})`;
+      };
+
+      // 3. Inject conversion text
+      // Hero Price
+      const heroPrice = document.querySelector(".price-current");
+      if (heroPrice) {
+        const div = document.createElement("div");
+        div.className = "price-local";
+        div.style.fontSize = "0.8rem";
+        div.style.color = "rgba(255,255,255,0.75)";
+        div.style.marginTop = "-4px";
+        div.style.marginBottom = "4px";
+        div.innerText = formatLocal(5.90);
+        
+        const cardMain = heroPrice.closest(".price-card-main");
+        if (cardMain) {
+          cardMain.insertAdjacentElement('afterend', div);
+        } else {
+          heroPrice.parentNode.appendChild(div);
+        }
+      }
+
+      // Basic Plan Price
+      const basicPrice = document.querySelector(".basic-p");
+      if (basicPrice) {
+        const div = document.createElement("div");
+        div.className = "price-local";
+        div.style.fontSize = "0.85rem";
+        div.style.color = "var(--muted)";
+        div.style.marginTop = "-2px";
+        div.style.marginBottom = "4px";
+        div.innerText = formatLocal(5.90);
+        basicPrice.insertAdjacentElement('afterend', div);
+      }
+
+      // Complete Plan Price
+      const completePriceWrap = document.querySelector(".complete-price-wrap");
+      if (completePriceWrap) {
+        const div = document.createElement("div");
+        div.className = "price-local";
+        div.style.fontSize = "0.9rem";
+        div.style.color = "#ffd166";
+        div.style.marginTop = "-2px";
+        div.style.marginBottom = "6px";
+        div.style.fontWeight = "bold";
+        div.innerText = formatLocal(19.90);
+        completePriceWrap.insertAdjacentElement('afterend', div);
+      }
+
+      // Upsell / Upgrade price
+      const upsellPrice = document.querySelector(".up-price-big");
+      if (upsellPrice) {
+        const div = document.createElement("div");
+        div.className = "price-local";
+        div.style.fontSize = "0.9rem";
+        div.style.color = "#2ecc71";
+        div.style.marginTop = "-2px";
+        div.style.marginBottom = "4px";
+        div.innerText = formatLocal(9.90) + " más";
+        upsellPrice.insertAdjacentElement('afterend', div);
+      }
+
+      // Upsell / Upgrade total
+      const upsellTotal = document.querySelector(".up-price-total");
+      if (upsellTotal) {
+        const div = document.createElement("div");
+        div.className = "price-local-total";
+        div.style.fontSize = "0.75rem";
+        div.style.color = "rgba(255, 255, 255, 0.6)";
+        div.style.marginTop = "2px";
+        div.innerText = `Total aproximado: ${formatLocal(15.80).replace(/[()~]/g, "").trim()}`;
+        upsellTotal.insertAdjacentElement('afterend', div);
+      }
+
+    } catch (err) {
+      // Quiet fail
+    }
+  })();
 
   console.log("%c🌮 90 Recetas — Básico %s | Completo %s", "color:#c0392b;font-weight:bold", CONFIG.PRICE_BASIC, CONFIG.PRICE_COMPLETE);
 });
