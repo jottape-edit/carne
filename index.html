@@ -156,6 +156,15 @@
       .price-current{font-size:42px}
       .btn-hero{font-size:15px}
     }
+    
+    /* Ocultar popup de upgrade/upsell por defecto para evitar parpadeo (FOUC) */
+    .upgrade-popup,
+    .upgrade-modal,
+    .upsell-popup,
+    .upsell-modal,
+    .upsell-overlay {
+      display: none;
+    }
   </style>
 
   <!-- CSS não crítico: deferido -->
@@ -696,10 +705,11 @@
 <!-- ================================================================
      UPSELL POPUP
 ================================================================ -->
-<div class="upsell-overlay" id="upsell-overlay" role="dialog" aria-modal="true" aria-labelledby="upsell-title">
-  <div class="upsell-modal">
+<div class="upsell-overlay upsell-popup upgrade-popup" id="upsell-overlay" role="dialog" aria-modal="true" aria-labelledby="upsell-title">
+  <div class="upsell-modal upgrade-modal">
 
-    <div class="upsell-header">
+    <div class="upsell-header" style="position: relative;">
+      <button class="modal-close-btn upgrade-close modal-close" id="upsell-close" aria-label="Cerrar modal" type="button">&times;</button>
       <div class="upsell-emoji">⚠️</div>
       <h3 id="upsell-title">¡Espera! Antes de continuar…</h3>
       <p>Elegiste el plan Básico por <strong>US$ 5.90</strong>. ¡Perfecto!</p>

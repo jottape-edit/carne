@@ -161,39 +161,66 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ----------------------------------------------------------
      UPSELL POPUP — abre ao clicar no plano básico
   ---------------------------------------------------------- */
-  const overlay    = document.getElementById("upsell-overlay");
-  const btnBasic   = document.getElementById("cta-basic");
-  const btnYes     = document.getElementById("upsell-yes");
-  const btnNo      = document.getElementById("upsell-no");
+  const overlay          = document.getElementById("upsell-overlay");
+  const basicPlanButtons = document.querySelectorAll('[data-open-upgrade], .basic-plan-button, #cta-basic');
+  const btnYes           = document.getElementById("upsell-yes");
+  const btnNo            = document.getElementById("upsell-no");
+  const closeButtons     = document.querySelectorAll('[data-close-upgrade], .upgrade-close, .modal-close');
 
   const openPopup = e => {
     e?.preventDefault();
     if (!overlay) return;
     overlay.classList.add("is-visible");
+    document.body.classList.add("modal-open");
     document.body.style.overflow = "hidden";
   };
 
   const closePopup = () => {
     if (!overlay) return;
     overlay.classList.remove("is-visible");
+    document.body.classList.remove("modal-open");
     document.body.style.overflow = "";
   };
 
   const goBasic    = () => { closePopup(); if (CONFIG.CHECKOUT_BASIC    !== "#") window.open(CONFIG.CHECKOUT_BASIC,    "_blank", "noopener"); };
   const goComplete = () => { closePopup(); if (CONFIG.CHECKOUT_COMPLETE !== "#") window.open(CONFIG.CHECKOUT_COMPLETE, "_blank", "noopener"); };
 
-  // Abre popup ao clicar no plano básico
-  btnBasic?.addEventListener("click", openPopup);
+  // Abre popup ao clicar no botão do plano básico
+  basicPlanButtons.forEach(button => {
+    button.addEventListener("click", openPopup);
+  });
 
-  // Botões dentro do popup
-  btnNo?.addEventListener("click",  goBasic);
-  btnYes?.addEventListener("click", e => { e.preventDefault(); goComplete(); });
+  // Botões de fechar (X / cancelar)
+  closeButtons.forEach(button => {
+    button.addEventListener("click", e => {
+      e?.preventDefault();
+      closePopup();
+    });
+  });
+
+  // Botão de checkout do plano básico (dentro do popup)
+  btnNo?.addEventListener("click", e => {
+    e?.preventDefault();
+    goBasic();
+  });
+
+  // Botão de checkout do plano completo (dentro do popup)
+  btnYes?.addEventListener("click", e => {
+    e?.preventDefault();
+    goComplete();
+  });
 
   // Fecha ao clicar fora do modal
-  overlay?.addEventListener("click", e => { if (e.target === overlay) closePopup(); });
+  overlay?.addEventListener("click", e => {
+    if (e.target === overlay) closePopup();
+  });
 
-  // Botão completo vai direto pro checkout
-  document.getElementById("cta-complete")?.addEventListener("click", e => { e.preventDefault(); goComplete(); });
+  // Botão completo na landing page vai direto pro checkout
+  document.getElementById("cta-complete")?.addEventListener("click", e => {
+    e?.preventDefault();
+    goComplete();
+  });
+
 
   /* ----------------------------------------------------------
      VSL LAZY LOAD — Wistia só carrega ao clicar no thumbnail
