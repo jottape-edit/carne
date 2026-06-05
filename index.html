@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- ROUTER: redireciona /soporte para soporte.html -->
+  <script>
+    (function(){
+      var p = window.location.pathname.replace(/\/+$/, '');
+      if (p === '/soporte') {
+        window.location.replace('/soporte.html');
+      }
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>90 Recetas Fáciles con Carne Molida | Recetas Económicas y Rendidoras</title>
