@@ -159,43 +159,40 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* ----------------------------------------------------------
-     UPSELL POPUP — básico abre popup, popup oferece +US$ 9.90
+     UPSELL POPUP — abre ao clicar no plano básico
   ---------------------------------------------------------- */
-  const overlay   = document.getElementById("upsell-overlay");
-  const btnBasic  = document.getElementById("cta-basic");
-  const btnYes    = document.getElementById("upsell-yes");
-  const btnNo     = document.getElementById("upsell-no");
+  const overlay    = document.getElementById("upsell-overlay");
+  const btnBasic   = document.getElementById("cta-basic");
+  const btnYes     = document.getElementById("upsell-yes");
+  const btnNo      = document.getElementById("upsell-no");
 
-  const openUp = e => {
+  const openPopup = e => {
     e?.preventDefault();
     if (!overlay) return;
-    overlay.style.display = "flex";
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        overlay.classList.add("active");
-      });
-    });
+    overlay.classList.add("is-visible");
     document.body.style.overflow = "hidden";
   };
 
-  const closeUp = () => {
+  const closePopup = () => {
     if (!overlay) return;
-    overlay.classList.remove("active");
+    overlay.classList.remove("is-visible");
     document.body.style.overflow = "";
-    setTimeout(() => { overlay.style.display = "none"; }, 400);
   };
 
-  const goBasic    = () => { closeUp(); if (CONFIG.CHECKOUT_BASIC    !== "#") window.open(CONFIG.CHECKOUT_BASIC,    "_blank", "noopener"); };
-  const goComplete = () => { closeUp(); if (CONFIG.CHECKOUT_COMPLETE !== "#") window.open(CONFIG.CHECKOUT_COMPLETE, "_blank", "noopener"); };
+  const goBasic    = () => { closePopup(); if (CONFIG.CHECKOUT_BASIC    !== "#") window.open(CONFIG.CHECKOUT_BASIC,    "_blank", "noopener"); };
+  const goComplete = () => { closePopup(); if (CONFIG.CHECKOUT_COMPLETE !== "#") window.open(CONFIG.CHECKOUT_COMPLETE, "_blank", "noopener"); };
 
-  btnBasic?.addEventListener("click", openUp);
-  btnNo?.addEventListener("click", goBasic);
+  // Abre popup ao clicar no plano básico
+  btnBasic?.addEventListener("click", openPopup);
+
+  // Botões dentro do popup
+  btnNo?.addEventListener("click",  goBasic);
   btnYes?.addEventListener("click", e => { e.preventDefault(); goComplete(); });
 
-  // Fechar ao clicar fora
-  overlay?.addEventListener("click", e => { if (e.target === overlay) closeUp(); });
+  // Fecha ao clicar fora do modal
+  overlay?.addEventListener("click", e => { if (e.target === overlay) closePopup(); });
 
-  // Botão completo direto
+  // Botão completo vai direto pro checkout
   document.getElementById("cta-complete")?.addEventListener("click", e => { e.preventDefault(); goComplete(); });
 
   /* ----------------------------------------------------------
