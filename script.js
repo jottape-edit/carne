@@ -166,8 +166,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnYes    = document.getElementById("upsell-yes");
   const btnNo     = document.getElementById("upsell-no");
 
-  const openUp  = e => { e?.preventDefault(); overlay?.classList.add("active"); document.body.style.overflow = "hidden"; };
-  const closeUp = () => { overlay?.classList.remove("active"); document.body.style.overflow = ""; };
+  const openUp  = e => {
+    e?.preventDefault();
+    if (!overlay) return;
+    overlay.style.display = "flex";
+    // força reflow para a transição funcionar
+    overlay.offsetHeight;
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+  };
+  const closeUp = () => {
+    if (!overlay) return;
+    overlay.classList.remove("active");
+    document.body.style.overflow = "";
+    // aguarda transição antes de esconder
+    overlay.addEventListener("transitionend", () => {
+      if (!overlay.classList.contains("active")) overlay.style.display = "none";
+    }, { once: true });
+  };
   const goBasic    = () => { closeUp(); if (CONFIG.CHECKOUT_BASIC    !== "#") window.open(CONFIG.CHECKOUT_BASIC,    "_blank", "noopener"); };
   const goComplete = () => { closeUp(); if (CONFIG.CHECKOUT_COMPLETE !== "#") window.open(CONFIG.CHECKOUT_COMPLETE, "_blank", "noopener"); };
 
